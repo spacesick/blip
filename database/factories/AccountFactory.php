@@ -14,7 +14,7 @@ class AccountFactory extends Factory
     public function definition(): array
     {
         return [
-            'balance' => (string) $this->faker->randomNumber(5, true),
+            'balance' => '0.00',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
 

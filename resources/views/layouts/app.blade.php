@@ -14,23 +14,25 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100">
+    <body class="font-sans text-neutral-900 bg-primary-50 subpixel-antialiased">
+        <div class="flex h-full min-h-screen">
             @include('layouts.navigation')
 
-            <!-- Page Heading -->
-            @isset($header)
-                <header class="bg-white shadow">
-                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                        {{ $header }}
-                    </div>
-                </header>
-            @endisset
+            <div class="grow divide-y">
+                <!-- Page Heading -->
+                @isset($header)
+                    <header>
+                        <div class="max-w-7xl mx-auto pt-14 pb-4 px-4 sm:px-6 lg:px-8 font-semibold text-2xl text-neutral-900">
+                            {{ $header }}
+                        </div>
+                    </header>
+                @endisset
 
-            <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+                <!-- Page Content -->
+                <main class="flex-grow px-24">
+                    {{ $slot }}
+                </main>
+            </div>
         </div>
     </body>
 </html>

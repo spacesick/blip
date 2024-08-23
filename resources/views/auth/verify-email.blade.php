@@ -15,7 +15,9 @@
 
             <div>
                 <x-primary-button>
-                    {{ __('Resend Verification Email') }}
+                    <div class="px-4 py-2">
+                        {{ __('Resend Verification Email') }}
+                    </div>
                 </x-primary-button>
             </div>
         </form>

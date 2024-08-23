@@ -1,28 +1,36 @@
-<nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+<nav x-data="{ open: false }" class="bg-primary-50 border-r border-neutral-200 pr-14">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex justify-between h-16">
-            <div class="flex">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
-                    </a>
-                </div>
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 h-screen sticky top-0 left-0 pb-8">
+        <div class="flex flex-col justify-between content-between h-full divide-y">
 
+            <div class="flex flex-col pt-8 divide-y">
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
+                <div class="pb-3">
+                    <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
+                        <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                            {{ __('Dashboard') }}
+                        </x-nav-link>
+                    </div>
+                </div>
+                <div class="pt-3">
+                    <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
+                        <x-nav-link :href="route('transfer-c')" :active="request()->routeIs('transfer-c')">
+                            {{ __('Top-up') }}
+                        </x-nav-link>
+                    </div>
+                    <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
+                        <x-nav-link :href="route('transfer-d')" :active="request()->routeIs('transfer-d')">
+                            {{ __('Transfer') }}
+                        </x-nav-link>
+                    </div>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdown align="right" width="48">
+            <div class="hidden sm:flex sm:items-center pb-20 pt-3">
+                <x-dropdown align="left" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center py-1 border border-transparent text-sm leading-4 font-medium rounded-md text-neutral-500 bg-primary-50 hover:text-neutral-700 focus:outline-none transition ease-in-out duration-150">
                             <div>{{ Auth::user()->name }}</div>
 
                             <div class="ms-1">

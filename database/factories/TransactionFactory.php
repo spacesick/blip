@@ -17,7 +17,7 @@ class TransactionFactory extends Factory
             'entry' => Transaction::CREDIT,
             'idempotent_key' => $this->faker->uuid(),
             'code' => 'TC/'.date('YmdHis').'/'.bin2hex(random_bytes(3)),
-            'amount' => (string) $this->faker->randomNumber(5, true),
+            'amount' => '12000.00',
             'details' => $this->faker->paragraph(),
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
@@ -33,7 +33,7 @@ class TransactionFactory extends Factory
            return [
                'entry' => Transaction::DEBIT,
                'code' => 'TD/'.date('YmdHis').'/'.bin2hex(random_bytes(3)),
-               'amount' => (string) $this->faker->randomNumber(4, true),
+               'amount' => '12000.00',
            ];
         });
     }
@@ -44,7 +44,7 @@ class TransactionFactory extends Factory
             return [
                 'entry' => Transaction::CREDIT,
                 'code' => 'TC/'.date('YmdHis').'/'.bin2hex(random_bytes(3)),
-                'amount' => (string) $this->faker->randomNumber(5, true),
+                'amount' => '12000.00',
             ];
         });
     }

@@ -45,7 +45,9 @@
             </a>
 
             <x-primary-button class="ms-4">
-                {{ __('Register') }}
+                <div class="px-4 py-2">
+                    {{ __('Register') }}
+                </div>
             </x-primary-button>
         </div>
     </form>

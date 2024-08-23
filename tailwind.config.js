@@ -1,5 +1,6 @@
 import defaultTheme from 'tailwindcss/defaultTheme';
 import forms from '@tailwindcss/forms';
+import colors from "tailwindcss/colors";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -11,8 +12,14 @@ export default {
 
     theme: {
         extend: {
+            colors: {
+                neutral: colors.stone,
+                primary: colors.zinc,
+                secondary: colors.orange,
+                accent: colors.fuchsia
+            },
             fontFamily: {
-                sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                sans: ['Hanken Grotesk', ...defaultTheme.fontFamily.sans],
             },
         },
     },
