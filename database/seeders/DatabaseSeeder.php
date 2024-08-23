@@ -2,8 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\Transaction;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Factories\TransactionFactory;
+use Database\Factories\UserFactory;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,11 +16,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $mockUser = User::factory()
+            ->create([
+                'name' => 'Test User',
+                'email' => 'test@example.com',
+            ]);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        Transaction::factory(4)
+            ->credit()
+            ->for($mockUser)
+            ->create();
+        Transaction::factory(4)
+            ->debit()
+            ->for($mockUser)
+            ->create();
+        Transaction::factory(4)
+            ->credit()
+            ->for($mockUser)
+            ->create();
+        Transaction::factory(4)
+            ->debit()
+            ->for($mockUser)
+            ->create();
     }
 }
