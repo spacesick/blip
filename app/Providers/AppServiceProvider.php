@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use App\Models\Transaction;
+use App\Services\AccountServiceImpl;
+use App\Services\Interface\AccountService;
 use App\Services\Interface\TransactionService;
 use App\Services\TransactionServiceImpl;
 use Illuminate\Support\ServiceProvider;
@@ -18,6 +20,7 @@ class AppServiceProvider extends ServiceProvider
     public function register(): void
     {
         $this->app->singleton(TransactionService::class, TransactionServiceImpl::class);
+        $this->app->singleton(AccountService::class, AccountServiceImpl::class);
         $isoCurrencies = new ISOCurrencies();
         $this->app->singleton(DecimalMoneyParser::class, function ($app) use ($isoCurrencies) {
             return new DecimalMoneyParser($isoCurrencies);
