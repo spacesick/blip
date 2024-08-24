@@ -19,6 +19,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/transfer/debit', [LedgerController::class, 'createDebitTransaction'])->name('transfer-d');
     Route::post('/transfer/debit', [LedgerController::class, 'storeDebitTransaction'])->name('transfer-d');
+
+    Route::get('/transactions/{transaction}', [LedgerController::class, 'show'])->name('transactions');
 });
 
 Route::middleware('auth')->group(function () {

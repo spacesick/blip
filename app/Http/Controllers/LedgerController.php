@@ -74,4 +74,19 @@ class LedgerController extends Controller
 
         return redirect()->route('dashboard');
     }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Transaction $transaction)
+    {
+        $this->authorize('view', $transaction);
+
+        $imageAttachment = $this->transactions->imageAttachment($transaction->code);
+
+        return view('transaction.show', [
+            'transaction' => $transaction,
+            'image' => $imageAttachment ? asset('storage/'.$imageAttachment->image_url) : null,
+        ]);
+    }
 }

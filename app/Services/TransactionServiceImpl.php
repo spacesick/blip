@@ -145,4 +145,10 @@ class TransactionServiceImpl implements Interface\TransactionService
     {
         return Transaction::whereCode($code)->first();
     }
+
+    public function imageAttachment(string $code): ?ImageAttachment
+    {
+        $transaction = Transaction::whereCode($code)->first();
+        return ImageAttachment::whereId($transaction->image_attachment_id)->first();
+    }
 }
