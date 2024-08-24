@@ -15,6 +15,10 @@ class LedgerTable extends Component
 
     public int $perPage = 10;
 
+    public ?string $searchTerm = null;
+
+    public ?string $entryType = null;
+
     public function changeRowsPerPage()
     {
 
@@ -23,7 +27,7 @@ class LedgerTable extends Component
     public function render(TransactionService $transactions): View
     {
         return view('livewire.ledger-table', [
-            'transactions' => $transactions->getUserLedger($this->perPage)
+            'transactions' => $transactions->getUserLedger($this->perPage, $this->searchTerm, $this->entryType)
         ]);
     }
 }

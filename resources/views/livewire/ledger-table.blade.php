@@ -1,4 +1,8 @@
 <section>
+    <div class="pb-4">
+        <x-text-input wire:model.live="searchTerm" placeholder="Filter">
+        </x-text-input>
+    </div>
     <div class="border border-neutral-200 rounded-md text-sm px-2.5">
         <table class="w-full text-left">
             <thead class="border-b">
@@ -46,6 +50,17 @@
                 $end = $start - 1 + $transactions->count();
             @endphp
             Showing {{ $start }} to {{ $end }} of {{ $transactions->total() }} records.
+        </div>
+        <div class="text-sm flex">
+            <div class="align-top pr-4">
+                Rows per page:
+            </div>
+            <select wire:model.live="perPage" name="perPage" id="perPage" class="inline-flex items-center justify-center bg-primary-800 border border-transparent rounded-md font-semibold text-xs text-primary-50 tracking-wide focus:outline-none focus:ring-0 transition ease-in-out duration-150">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="20">20</option>
+                <option value="50">50</option>
+            </select>
         </div>
         <div>
             @if ($transactions->hasPages())

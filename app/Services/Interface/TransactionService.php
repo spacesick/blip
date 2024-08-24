@@ -14,7 +14,7 @@ interface TransactionService
 
     public function newDebit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): void;
 
-    public function getUserLedger(int $perPage): LengthAwarePaginator|Transaction;
+    public function getUserLedger(int $perPage, ?string $searchTerm, ?string $entryType): LengthAwarePaginator|Transaction;
 
     public function get(string $code);
 

@@ -134,11 +134,26 @@ class TransactionServiceImpl implements Interface\TransactionService
         DB::commit();
     }
 
-    public function getUserLedger(int $perPage): LengthAwarePaginator|Transaction
+    public function getUserLedger(int $perPage, ?string $searchTerm, ?string $entryType): LengthAwarePaginator|Transaction
     {
         $ledger = Transaction::whereUserId(Auth::id());
 
-        return $ledger->paginate($perPage);
+        if ($searchTerm) {
+            $ledger
+                ->where('details', 'like', "%$searchTerm%")
+                ->orWhere('code', 'like', "%$searchTerm%")
+                ->orWhere('amount', 'like', "%$searchTerm%")
+                ->orWhere('created_at', 'like', "%$searchTerm%")
+                ->orWhere('entry', 'like', "%$searchTerm%");
+        }
+
+        if ($entryType) {
+            $ledger->whereEntry($entryType);
+        }
+
+        return $ledger
+            ->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
 
     public function get(string $code)
