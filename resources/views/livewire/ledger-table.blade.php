@@ -20,16 +20,30 @@
             </tr>
             </thead>
             <tbody class="divide-y font-mono">
+            @if ($transactions->isEmpty())
+                <tr class="h-10 align-middle">
+                    <td colspan="4" class="px-4 text-center">
+                        No transactions found here!
+                    </td>
+                </tr>
+            @else
             @foreach ($transactions as $transaction)
                 <tr class="h-10 align-middle">
                     <td colspan="1" class="px-4">
                         {{ $transaction->code }}
                     </td>
                     <td colspan="1" class="px-4">
-                        {{ $transaction->entry }}
+                        {{ Str::ucfirst($transaction->entry) }}
                     </td>
                     <td colspan="1" class="px-4 text-end">
-                        {{ $transaction->amount }}
+                        <div class="flex justify-between">
+                            <div>
+                                Rp.
+                            </div>
+                            <div>
+                                {{ number_format($transaction->amount, 2, ',', '.') }}
+                            </div>
+                        </div>
                     </td>
                     <td colspan="1" class="">
                         <div class="flex align-middle justify-center">
@@ -40,45 +54,51 @@
                     </td>
                 </tr>
             @endforeach
+            @endif
             </tbody>
         </table>
     </div>
     <div class="flex justify-between p-4">
-        <div class="text-sm">
+        <div class="text-sm font-medium text-neutral-600">
             @php
                 $start = ($transactions->currentPage() - 1) * $transactions->perPage() + 1;
                 $end = $start - 1 + $transactions->count();
             @endphp
             Showing {{ $start }} to {{ $end }} of {{ $transactions->total() }} records.
         </div>
-        <div class="text-sm flex">
-            <div class="align-top pr-4">
-                Rows per page:
+        <div class="flex gap-8">
+            <div class="text-sm flex">
+                <div class="align-top pr-4 font-medium text-neutral-600">
+                    Rows per page:
+                </div>
+                <select wire:model.change="perPage" wire:input="updatePagination" name="perPage" id="perPage" class="inline-flex items-center justify-center bg-primary-800 border border-transparent rounded-md font-semibold text-xs text-primary-50 tracking-wide border-none focus:outline-none focus:ring-0 focus-within:ring-0 transition ease-in-out duration-150">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="50">50</option>
+                </select>
             </div>
-            <select wire:model.live="perPage" name="perPage" id="perPage" class="inline-flex items-center justify-center bg-primary-800 border border-transparent rounded-md font-semibold text-xs text-primary-50 tracking-wide focus:outline-none focus:ring-0 transition ease-in-out duration-150">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="20">20</option>
-                <option value="50">50</option>
-            </select>
-        </div>
-        <div>
-            @if ($transactions->hasPages())
-                @if (!$transactions->onFirstPage())
-                    <x-primary-button>
-                        <a class="px-4 py-2" href="{{ $transactions->previousPageUrl() }}">
-                            Previous
-                        </a>
-                    </x-primary-button>
+            <div class="flex align-middle">
+                @if ($transactions->hasPages())
+                    @if (!$transactions->onFirstPage())
+                        <x-primary-button class="rounded-r-none">
+                            <div class="p-2 fill-neutral-50" wire:click="previousPage" wire:loading.attr="disabled" >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M9.78 12.78a.75.75 0 0 1-1.06 0L4.47 8.53a.75.75 0 0 1 0-1.06l4.25-4.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L6.06 8l3.72 3.72a.75.75 0 0 1 0 1.06Z"></path></svg>
+                            </div>
+                        </x-primary-button>
+                    @endif
+                    <div class="border border-neutral-300 text-sm font-medium w-8 flex justify-center place-items-center">
+                        {{ $transactions->currentPage() }}
+                    </div>
+                    @if (!$transactions->onLastPage())
+                        <x-primary-button class="rounded-l-none">
+                            <a class="p-2 fill-neutral-50" wire:click="nextPage" wire:loading.attr="disabled" >
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16" height="16"><path d="M6.22 3.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042L9.94 8 6.22 4.28a.75.75 0 0 1 0-1.06Z"></path></svg>
+                            </a>
+                        </x-primary-button>
+                    @endif
                 @endif
-                @if (!$transactions->onLastPage())
-                    <x-primary-button>
-                        <a class="px-4 py-2" href="{{ $transactions->nextPageUrl() }}">
-                            Next
-                        </a>
-                    </x-primary-button>
-                @endif
-            @endif
+            </div>
         </div>
     </div>
 </section>

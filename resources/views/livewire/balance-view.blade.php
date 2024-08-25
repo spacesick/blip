@@ -6,7 +6,7 @@
             </label>
             @if($balance)
                 <h3 class="text-2xl font-mono">
-                    {{ $balance }}
+                    {{ 'Rp.'.number_format($balance, 2, ',', '.') }}
                 </h3>
             @else
                 <h3 class="text-2xl font-mono">

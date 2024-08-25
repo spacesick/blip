@@ -19,9 +19,9 @@ class LedgerTable extends Component
 
     public ?string $entryType = null;
 
-    public function changeRowsPerPage()
+    public function updatePagination()
     {
-
+        $this->resetPage();
     }
 
     public function render(TransactionService $transactions): View
