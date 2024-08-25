@@ -22,3 +22,11 @@ Make sure you have PHP 8.2, Composer, Node.js, and NPM (or any other Node packag
    
     php artisan serve --port=8000
     ```
+
+## Information
+
+Default seeded user credentials:
+- email: test@example.com
+- password: terminal
+
+When entering a transaction amount, append a `.00`, e.g. `100.00`.
