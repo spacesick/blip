@@ -10,7 +10,7 @@ class DebitTransactionRequest extends FormRequest
     {
         return [
             'idempotent_key' => ['required', 'uuid'],
-            'amount' => ['required', 'numeric', 'min:0'],
+            'amount' => ['required', 'decimal:2', 'min:0'],
             'details' => ['nullable'],
             'image_attachment' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
         ];

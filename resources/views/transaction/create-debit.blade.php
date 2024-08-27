@@ -29,9 +29,13 @@
                     <x-input-label for="amount" :value="__('Amount')" />
 
                     <x-text-input id="amount" class="block my-2"
-                                  type="text"
                                   name="amount"
-                                  required autofocus autocomplete="current-amount" />
+                                  placeholder="25000.50"
+                                  required autofocus autocomplete="current-amount">
+                        <div class="px-2">
+                            Rp.
+                        </div>
+                    </x-text-input>
 
                     <x-input-error :messages="$errors->get('amount')" />
                 </div>

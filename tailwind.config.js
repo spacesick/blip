@@ -21,6 +21,12 @@ export default {
             fontFamily: {
                 sans: ['Hanken Grotesk', ...defaultTheme.fontFamily.sans],
             },
+            transitionDuration: {
+                DEFAULT: '150ms'
+            },
+            transitionTimingFunction: {
+                DEFAULT: 'cubic-bezier(0.25, 0.1, 0.25, 1.0)'
+            }
         },
     },
 
