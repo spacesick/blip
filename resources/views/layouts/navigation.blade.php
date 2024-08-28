@@ -23,6 +23,11 @@
                             {{ __('Transfer') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
+                        <x-nav-link :href="route('top-up')" :active="request()->routeIs('top-up')">
+                            {{ __('Top Up') }}
+                        </x-nav-link>
+                    </div>
                 </div>
             </div>
 

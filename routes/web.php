@@ -3,6 +3,7 @@
 use App\Http\Controllers\LedgerController;
 use App\Http\Controllers\ProfileController;
 use App\Livewire\CreateDebitTransaction;
+use App\Livewire\TopUpWithCreditCard;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -21,6 +22,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/transfer/debit', [LedgerController::class, 'storeDebitTransaction'])->name('transfer-d');
 
     Route::get('/transactions/{transaction}', [LedgerController::class, 'show'])->name('transactions');
+
+    Route::get('/top-up', TopUpWithCreditCard::class)->name('top-up');
 });
 
 Route::middleware('auth')->group(function () {

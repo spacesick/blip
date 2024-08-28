@@ -11,7 +11,8 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.5",
         "moneyphp/money": "^4.5",
-        "php-http/guzzle7-adapter": "^1.0"
+        "php-http/guzzle7-adapter": "^1.0",
+        "xendit/xendit-php": "^6.0"
     },
     "require-dev": {
         "barryvdh/laravel-ide-helper": "^3.1",

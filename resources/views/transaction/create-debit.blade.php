@@ -8,19 +8,6 @@
     <div class="py-12 px-24">
 
         <div class="border border-neutral-200 rounded-md text-sm p-12">
-            @if (Session::has('error'))
-                <div class="alert alert-danger" role="alert">
-                    {{ $request->session()->get('error') }}
-                </div>
-            @endif
-            @if ($errors->any())
-                <div class="alert alert-danger" role="alert">
-                    @foreach ($errors->all() as $error)
-                        - {{ $error }}<br />
-                    @endforeach
-                </div>
-            @endif
-
             <form method="POST" enctype="multipart/form-data" action="{{ route('transfer-d') }}" class="flex flex-col gap-2">
                 @csrf
                 <input type="hidden" name="idempotent_key" value="{{ (string) Str::uuid() }}">
