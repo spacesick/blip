@@ -10,14 +10,14 @@ class TopUpWithCreditCardRequest extends FormRequest
     {
         return [
             'idempotent_key' => ['required', 'uuid'],
-            'amount' => ['required', 'decimal:2', 'min:0'],
+            'amount' => ['required', 'decimal:0', 'min:0'],
             'details' => ['nullable'],
             'image_attachment' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
-            'card_number' => ['required', 'string', 'size:16'],
+            'card_number' => ['required', 'numeric'],
             'card_name' => ['required', 'string'],
-            'card_exp_month' => ['required', 'string', 'size:2'],
-            'card_exp_year' => ['required', 'string', 'size:4'],
-            'card_cvv' => ['required', 'string', 'size:3'],
+            'card_exp_month' => ['required', 'integer', 'digits:2'],
+            'card_exp_year' => ['required', 'integer', 'digits:4'],
+            'card_cvv' => ['required', 'integer', 'digits:3'],
         ];
     }
 

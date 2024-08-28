@@ -57,11 +57,14 @@
                 <x-text-input id="amount" class="block my-2"
                               wire:model="form.amount"
                               name="amount"
-                              placeholder="25000.50"
+                              placeholder="25000"
                               required autofocus autocomplete="current-amount">
                     <div class="flex justify-center w-10">
                         Rp.
                     </div>
+                    <x-slot:tail>
+                        .00
+                    </x-slot:tail>
                 </x-text-input>
 
                 <x-input-error :messages="$errors->get('form.amount')" />
