@@ -2,6 +2,8 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Http;
+use Str;
 use Xendit\PaymentMethod\PaymentMethodReusability;
 use Xendit\PaymentMethod\PaymentMethodStatus;
 use Xendit\PaymentMethod\PaymentMethodType;
@@ -40,8 +42,48 @@ class CreditCardServiceImpl implements Interface\CreditCardService
         abort(501, 'Something went wrong.');
     }
 
-    public function charge(string $token, int $amount): void
+    public function charge(string $token, string $authToken, int $amount): mixed
     {
-        // TODO: Implement charge() method.
+        $externalId = (string) Str::uuid();
+
+        $res = Http::withBasicAuth(
+            config('xendit.key'),
+            ''
+        )->post('https://api.xendit.co/credit_card_charges', [
+            'token_id' => $token,
+            'authentication_id' => $authToken,
+            'external_id' => $externalId,
+            'amount' => $amount,
+            'currency' => 'IDR',
+            'capture' => true,
+        ]);
+
+        if ($res->clientError()) {
+            return [
+                'success' => false,
+                'error' => $res->json()['message']
+            ];
+        }
+
+        $res = $res->json();
+
+        if ($res['external_id'] !== $externalId) {
+            return [
+                'success' => false,
+                'error' => 'External ID mismatch.'
+            ];
+        }
+
+        if ($res['status'] === 'FAILED') {
+            return [
+                'success' => false,
+                'error' => 'Something went wrong. ('.$res['failure_reason'].')'
+            ];
+        }
+
+        return [
+            'success' => true,
+            'error' => 'Success'
+        ];
     }
 }

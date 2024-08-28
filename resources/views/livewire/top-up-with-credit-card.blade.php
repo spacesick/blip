@@ -18,7 +18,9 @@
             should_authenticate: true,
         }, (err, token) => {
             if (err) {
-                $wire.tokenizationError(err);
+                $wire.dispatchSelf('tokenization-error', {
+                    err: `Failed to charge credit card. (${err.message})`
+                });
             }
 
             if (token.status === 'APPROVED' || token.status === 'VERIFIED') {
@@ -33,7 +35,9 @@
                 $wire.dispatch('open-modal', 'request-secure-auth');
             }
             else {
-                $wire.tokenizationError(token);
+                $wire.dispatchSelf('tokenization-error', {
+                    err: 'Authentication failed.'
+                });
             }
         });
     });
@@ -49,6 +53,8 @@
     <div class="border border-neutral-200 rounded-md text-sm p-12">
         <form wire:submit="save" method="POST" enctype="multipart/form-data" action="{{ route('transfer-c') }}" class="flex flex-col gap-2">
             @csrf
+            <x-input-error :messages="$errors->get('flow_error')" />
+
             <input type="hidden" wire:model="form.idempotent_key" name="idempotent_key">
             <!-- Amount -->
             <div>

@@ -6,7 +6,7 @@ interface CreditCardService
 {
     public function createToken(string $cardNumber, string $cardName, string $cardExpMonth, string $cardExpYear, string $cardCvv): string;
 
-    public function charge(string $token, int $amount): void;
+    public function charge(string $token, string $authToken, int $amount): mixed;
 
 //    public function refund(string $token, int $amount): void;
 //

@@ -28,13 +28,27 @@ class TopUpWithCreditCard extends Component
         CreditCardService $creditCardService,
         TransactionService $transactions
     ) {
-        error_log($tokenId.' '.$tokenAuth);
-        abort(501, 'TODO: Charge the card');
+        $res = $creditCardService->charge($tokenId, $tokenAuth, $this->form->amount);
+        if ($res['success']) {
+            $imageUrl = $this->form->image_attachment->store('images', 'public');
+            $transactions->newCredit(
+                $this->form->idempotent_key,
+                $this->form->amount,
+                $this->form->details,
+                $imageUrl
+            );
+            return $this->redirect(route('dashboard'));
+        }
+        else {
+            $this->addError('flow_error', $res['message']);
+            return;
+        }
     }
 
+    #[On('tokenization-error')]
     public function tokenizationError($err) {
-        error_log($err);
-        abort(501, 'Tokenization failed');
+        $this->addError('flow_error', $err);
+        $this->dispatch('close-modal', 'request-secure-auth');
     }
 
     public function render()
