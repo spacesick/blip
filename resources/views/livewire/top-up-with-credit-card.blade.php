@@ -59,7 +59,7 @@
                               name="amount"
                               placeholder="25000.50"
                               required autofocus autocomplete="current-amount">
-                    <div class="px-2">
+                    <div class="flex justify-center w-10">
                         Rp.
                     </div>
                 </x-text-input>
@@ -90,55 +90,60 @@
             </div>
 
             <!-- Credit Card Details -->
-            <div>
-                <x-input-label for="card_number" :value="__('Card Number')" />
+            <div class="flex justify-between">
+                <div class="w-full">
+                    <x-input-label for="card_number" :value="__('Card Number')" />
 
-                <x-text-input id="card_number" class="block my-2"
-                              wire:model="form.card_number"
-                              name="card_number"
-                              required autofocus autocomplete="current-card_number" />
+                    <x-text-input id="card_number" class="block my-2 w-44"
+                                  wire:model="form.card_number"
+                                  name="card_number"
+                                  required autofocus autocomplete="current-card_number" />
 
-                <x-input-error :messages="$errors->get('form.card_number')" />
+                    <x-input-error :messages="$errors->get('form.card_number')" />
+                </div>
+                <div class="flex w-full justify-between">
+                    <div class="w-full">
+                        <x-input-label :value="__('Expiry Date')" />
+                        <div class="flex">
+                                <x-text-input id="card_exp_month" class="block my-2 w-12 rounded-r-none"
+                                              wire:model="form.card_exp_month"
+                                              placeholder="MM"
+                                              name="card_exp_month"
+                                              required autofocus autocomplete="current-card_exp_month" />
+
+                                <x-text-input id="card_exp_year" class="block my-2 w-16 rounded-l-none"
+                                              wire:model="form.card_exp_year"
+                                              placeholder="YYYY"
+                                              name="card_exp_year"
+                                              required autofocus autocomplete="current-card_exp_year" />
+                        </div>
+
+                        <x-input-error :messages="$errors->get('form.card_exp_month')" />
+
+                        <x-input-error :messages="$errors->get('form.card_exp_year')" />
+                    </div>
+
+                    <div class="w-full">
+                        <x-input-label for="card_cvv" :value="__('CVV')" />
+
+                        <x-text-input id="card_cvv" class="block my-2 w-16"
+                                      wire:model="form.card_cvv"
+                                      name="card_cvv"
+                                      required autofocus autocomplete="current-card_cvv" />
+
+                        <x-input-error :messages="$errors->get('form.card_cvv')" />
+                    </div>
+                </div>
             </div>
             <div>
                 <x-input-label for="card_name" :value="__('Card Name')" />
 
-                <x-text-input id="card_name" class="block my-2"
+                <x-text-input id="card_name" class="block my-2 w-64"
                               wire:model="form.card_name"
                               name="card_name"
                               required autofocus autocomplete="current-card_name" />
 
                 <x-input-error :messages="$errors->get('form.card_name')" />
-            </div>
-            <div>
-                <x-input-label for="card_exp_month" :value="__('Expiry Month')" />
-
-                <x-text-input id="card_exp_month" class="block my-2"
-                              wire:model="form.card_exp_month"
-                              name="card_exp_month"
-                              required autofocus autocomplete="current-card_exp_month" />
-
-                <x-input-error :messages="$errors->get('form.card_exp_month')" />
-            </div>
-            <div>
-                <x-input-label for="card_exp_year" :value="__('Expiry Year')" />
-
-                <x-text-input id="card_exp_year" class="block my-2"
-                              wire:model="form.card_exp_year"
-                              name="card_exp_year"
-                              required autofocus autocomplete="current-card_exp_year" />
-
-                <x-input-error :messages="$errors->get('form.card_exp_year')" />
-            </div>
-            <div>
-                <x-input-label for="card_cvv" :value="__('CVV')" />
-
-                <x-text-input id="card_cvv" class="block my-2"
-                              wire:model="form.card_cvv"
-                              name="card_cvv"
-                              required autofocus autocomplete="current-card_cvv" />
-
-                <x-input-error :messages="$errors->get('form.card_cvv')" />
             </div>
 
             <div class="flex items-center justify-end mt-4">

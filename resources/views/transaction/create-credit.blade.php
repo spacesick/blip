@@ -19,7 +19,7 @@
                                   name="amount"
                                   placeholder="25000.50"
                                   required autofocus autocomplete="current-amount">
-                        <div class="px-2">
+                        <div class="flex justify-center w-10">
                             Rp.
                         </div>
                     </x-text-input>
