@@ -10,9 +10,9 @@ use Illuminate\Pagination\LengthAwarePaginator;
 
 interface TransactionService
 {
-    public function newCredit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): void;
+    public function newCredit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): mixed;
 
-    public function newDebit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): void;
+    public function newDebit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): mixed;
 
     public function getUserLedger(int $perPage, ?string $searchTerm, string $sortBy, string $sortDirection): LengthAwarePaginator|Transaction;
 

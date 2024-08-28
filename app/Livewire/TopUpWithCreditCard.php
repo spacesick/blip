@@ -40,7 +40,7 @@ class TopUpWithCreditCard extends Component
             return $this->redirect(route('dashboard'));
         }
         else {
-            $this->addError('flow_error', $res['message']);
+            $this->addError('flow_error', $res['error']);
             return;
         }
     }

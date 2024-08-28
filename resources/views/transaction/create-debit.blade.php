@@ -10,6 +10,8 @@
         <div class="border border-neutral-200 rounded-md text-sm p-12">
             <form method="POST" enctype="multipart/form-data" action="{{ route('transfer-d') }}" class="flex flex-col gap-2">
                 @csrf
+                <x-input-error :messages="$errors->get('flow_error')" />
+
                 <input type="hidden" name="idempotent_key" value="{{ (string) Str::uuid() }}">
                 <!-- Amount -->
                 <div>

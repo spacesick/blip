@@ -54,8 +54,11 @@ class LedgerController extends Controller
         $data = $request->safe()->only(['idempotent_key', 'amount', 'details']);
         $imageUrl = $request->file('image_attachment')->store('images', 'public');
 
-        $this->transactions->newCredit($data['idempotent_key'], $data['amount'], $data['details'], $imageUrl);
+        $res = $this->transactions->newCredit($data['idempotent_key'], $data['amount'], $data['details'], $imageUrl);
 
+        if (!$res['success']) {
+            return redirect()->back()->withErrors(['flow_error' => $res['error']]);
+        }
         return redirect()->route('dashboard');
     }
 
@@ -70,8 +73,11 @@ class LedgerController extends Controller
             $imageUrl = $request->file('image_attachment')->store('images', 'public');
         }
 
-        $this->transactions->newDebit($data['idempotent_key'], $data['amount'], $data['details'], $imageUrl);
+        $res = $this->transactions->newDebit($data['idempotent_key'], $data['amount'], $data['details'], $imageUrl);
 
+        if (!$res['success']) {
+            return redirect()->back()->withErrors(['flow_error' => $res['error']]);
+        }
         return redirect()->route('dashboard');
     }
 

@@ -24,13 +24,16 @@ class TransactionServiceImpl implements Interface\TransactionService
         protected DecimalMoneyFormatter $balanceSerializer,
     ) {}
 
-    public function newCredit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): void
+    public function newCredit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): mixed
     {
         DB::beginTransaction();
 
         if (Transaction::whereIdempotentKey($idempotentKey)->first()) {
             DB::rollBack();
-            abort(422);
+            return [
+                'success' => false,
+                'error' => 'A request with the same idempotent key for the same operation is being processed or is outstanding!'
+            ];
         }
 
         $transaction = new Transaction();
@@ -47,7 +50,10 @@ class TransactionServiceImpl implements Interface\TransactionService
 
             if (!$transactionAttachment->save()) {
                 DB::rollBack();
-                abort(500, 'Unable to save image attachment!');
+                return [
+                    'success' => false,
+                    'error' => 'Unable to save your image attachment!'
+                ];
             }
 
             $transaction->image_attachment_id = $transactionAttachment->id;
@@ -55,7 +61,10 @@ class TransactionServiceImpl implements Interface\TransactionService
 
         if (!$transaction->save()) {
             DB::rollBack();
-            abort(500, 'Unable to save transaction!');
+            return [
+                'success' => false,
+                'error' => 'Unable to save your transaction! The transaction is cancelled.'
+            ];
         }
 
         $userAccount = Account::whereUserId(Auth::id())->first();
@@ -71,19 +80,29 @@ class TransactionServiceImpl implements Interface\TransactionService
 
         if (!$userAccount->save()) {
             DB::rollBack();
-            abort(500, 'Unable to update balance!');
+            return [
+                'success' => false,
+                'error' => 'Unable to update balance! The transaction is cancelled.'
+            ];
         }
 
         DB::commit();
+        return [
+            'success' => true,
+            'error' => null
+        ];
     }
 
-    public function newDebit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): void
+    public function newDebit(string $idempotentKey, string $amount, ?string $details, ?string $imageUrl): mixed
     {
         DB::beginTransaction();
 
         if (Transaction::whereIdempotentKey($idempotentKey)->first()) {
             DB::rollBack();
-            abort(422);
+            return [
+                'success' => false,
+                'error' => 'A request with the same idempotent key for the same operation is being processed or is outstanding!'
+            ];
         }
 
         $transaction = new Transaction();
@@ -100,7 +119,10 @@ class TransactionServiceImpl implements Interface\TransactionService
 
             if (!$transactionAttachment->save()) {
                 DB::rollBack();
-                abort(500, 'Unable to save image attachment!');
+                return [
+                    'success' => false,
+                    'error' => 'Unable to save your image attachment!'
+                ];
             }
 
             $transaction->image_attachment_id = $transactionAttachment->id;
@@ -108,7 +130,10 @@ class TransactionServiceImpl implements Interface\TransactionService
 
         if (!$transaction->save()) {
             DB::rollBack();
-            abort(500, 'Unable to save transaction!');
+            return [
+                'success' => false,
+                'error' => 'Unable to save your transaction! The transaction is cancelled.'
+            ];
         }
 
         $userAccount = Account::whereUserId(Auth::id())->first();
@@ -122,16 +147,26 @@ class TransactionServiceImpl implements Interface\TransactionService
         );
         if ($balance->lessThan($debit)) {
             DB::rollBack();
-            throw new InsufficientBalanceException('You have insufficient balance!');
+            return [
+                'success' => false,
+                'error' => 'You have insufficient balance!'
+            ];
         }
         $userAccount->balance = $this->balanceSerializer->format($balance->subtract($debit));
 
         if (!$userAccount->save()) {
             DB::rollBack();
-            abort(500, 'Unable to update balance!');
+            return [
+                'success' => false,
+                'error' => 'Unable to update balance! The transaction is cancelled.'
+            ];
         }
 
         DB::commit();
+        return [
+            'success' => true,
+            'error' => null
+        ];
     }
 
     public function getUserLedger(int $perPage, ?string $searchTerm, string $sortBy, string $sortDirection): LengthAwarePaginator|Transaction

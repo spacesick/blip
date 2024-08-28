@@ -83,7 +83,7 @@ class CreditCardServiceImpl implements Interface\CreditCardService
 
         return [
             'success' => true,
-            'error' => 'Success'
+            'error' => null
         ];
     }
 }
