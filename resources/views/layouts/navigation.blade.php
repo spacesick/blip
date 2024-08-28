@@ -14,12 +14,7 @@
                 </div>
                 <div class="pt-3">
                     <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
-                        <x-nav-link :href="route('transfer-c')" :active="request()->routeIs('transfer-c')">
-                            {{ __('Top-up') }}
-                        </x-nav-link>
-                    </div>
-                    <div class="hidden pt-1 space-y-8 sm:-my-px sm:flex">
-                        <x-nav-link :href="route('transfer-d')" :active="request()->routeIs('transfer-d')">
+                        <x-nav-link :href="route('transfer')" :active="request()->routeIs('transfer')">
                             {{ __('Transfer') }}
                         </x-nav-link>
                     </div>

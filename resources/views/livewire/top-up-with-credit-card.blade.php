@@ -51,7 +51,7 @@
 <div class="py-12 px-24">
 
     <div class="border border-neutral-200 rounded-md text-sm p-12">
-        <form wire:submit="save" method="POST" enctype="multipart/form-data" action="{{ route('transfer-c') }}" class="flex flex-col gap-2">
+        <form wire:submit="save" method="POST" enctype="multipart/form-data" class="flex flex-col gap-2">
             @csrf
             <x-input-error :messages="$errors->get('flow_error')" />
 

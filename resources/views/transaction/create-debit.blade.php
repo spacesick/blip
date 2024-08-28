@@ -1,14 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
         <h2>
-            {{ __('New Debit Transaction') }}
+            {{ __('Transfer Funds') }}
         </h2>
     </x-slot>
 
     <div class="py-12 px-24">
 
         <div class="border border-neutral-200 rounded-md text-sm p-12">
-            <form method="POST" enctype="multipart/form-data" action="{{ route('transfer-d') }}" class="flex flex-col gap-2">
+            <form method="POST" enctype="multipart/form-data" action="{{ route('transfer') }}" class="flex flex-col gap-2">
                 @csrf
                 <x-input-error :messages="$errors->get('flow_error')" />
 

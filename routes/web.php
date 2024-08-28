@@ -15,11 +15,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/transfer/credit', [LedgerController::class, 'createCreditTransaction'])->name('transfer-c');
-    Route::post('/transfer/credit', [LedgerController::class, 'storeCreditTransaction'])->name('transfer-c');
-
-    Route::get('/transfer/debit', [LedgerController::class, 'createDebitTransaction'])->name('transfer-d');
-    Route::post('/transfer/debit', [LedgerController::class, 'storeDebitTransaction'])->name('transfer-d');
+    Route::get('/transfer', [LedgerController::class, 'createDebitTransaction'])->name('transfer');
+    Route::post('/transfer', [LedgerController::class, 'storeDebitTransaction'])->name('transfer');
 
     Route::get('/transactions/{transaction}', [LedgerController::class, 'show'])->name('transactions');
 
