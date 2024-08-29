@@ -30,5 +30,3 @@ Make sure you have PHP 8.2, Composer, Node.js, and NPM (or any other Node packag
 Default seeded user credentials:
 - email: `test@example.com`
 - password: `terminal`
-
-When entering a fund transfer amount, append two decimal places, e.g. `100.00`.
