@@ -16,6 +16,13 @@ class CreditTransactionRequest extends FormRequest
         ];
     }
 
+    public function prepareForValidation()
+    {
+        $this->merge([
+            'amount' => str_replace(['.', ','], ['', '.'], $this->amount),
+        ]);
+    }
+
     public function authorize(): bool
     {
         return true;

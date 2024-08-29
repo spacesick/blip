@@ -21,16 +21,6 @@ class LedgerController extends Controller
     public function __construct(protected TransactionService $transactions) {}
 
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        $this->authorize('viewAny', Transaction::class);
-
-        $userLedger = $this->transactions->getUserLedger();
-    }
-
-    /**
      * Display the credit transaction form.
      */
     public function createCreditTransaction()

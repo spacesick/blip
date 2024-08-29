@@ -18,8 +18,9 @@
                     <x-input-label for="amount" :value="__('Amount')" />
 
                     <x-text-input id="amount" class="block my-2"
+                                  amount-input
                                   name="amount"
-                                  placeholder="25000.50"
+                                  placeholder="25.000,50"
                                   required autofocus autocomplete="current-amount">
                         <div class="flex justify-center w-10">
                             Rp.

@@ -17,6 +17,7 @@ class TopUpWithCreditCard extends Component
     public TopUpWithCreditCardForm $form;
 
     public function save() {
+        $this->form->amount = str_replace(['.', ','], ['', '.'], $this->form->amount);
         $this->validate();
 
         $this->dispatch('create-token')->self();

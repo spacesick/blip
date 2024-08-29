@@ -10,7 +10,7 @@ class TopUpWithCreditCardRequest extends FormRequest
     {
         return [
             'idempotent_key' => ['required', 'uuid'],
-            'amount' => ['required', 'decimal:0', 'min:0'],
+            'amount' => ['required', 'decimal:0', 'min:5000'],
             'details' => ['nullable'],
             'image_attachment' => ['required', 'image', 'mimes:jpeg,png,jpg', 'max:1024'],
             'card_number' => ['required', 'numeric'],

@@ -62,14 +62,16 @@
 
                 <x-text-input id="amount" class="block my-2"
                               wire:model="form.amount"
+                              amount-input
+                              omit-decimal-places
                               name="amount"
-                              placeholder="25000"
+                              placeholder="25.000"
                               required autofocus autocomplete="current-amount">
                     <div class="flex justify-center w-10">
                         Rp.
                     </div>
                     <x-slot:tail>
-                        .00
+                        ,00
                     </x-slot:tail>
                 </x-text-input>
 
